@@ -1,0 +1,662 @@
+/* =====================================================
+   VARIÁVEIS GLOBAIS
+===================================================== */
+:root {
+    --cor-laranja: rgb(255, 145, 0);
+    --cor-azul-escuro: #0c3666;
+    --cor-cinza-claro: #f5f5f5;
+    --cor-cinza-medio: #e0e0e0;
+    --cor-cinza-escuro: #616161;
+    --cor-preto: #000000;
+    --cor-branco: #ffffff;
+
+    --fonte-principal: 'Roboto', sans-serif;
+    --fonte-secundaria: 'Rubik', sans-serif;}
+
+html, body {
+    height: 100%;}
+
+body {
+    display: flex;
+    flex-direction: column;}
+
+.conteudo-principal {
+    flex: 1;}
+
+
+.bloco-interno {
+    padding-left: 2rem;
+    padding-right: 2rem;}
+
+/* =====================================================
+   BASE / RESET LEVE
+===================================================== */
+a {
+    text-decoration: none;}
+
+ul {
+    margin: 0;
+    padding: 0;}
+
+/* =====================================================
+   TOPO DA PÁGINA
+===================================================== */
+.header-fixo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    background-color: var(--cor-branco);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;}
+
+.topo {
+    height: 90px;}
+
+.laranja {
+    height: 15px;
+    background-color: var(--cor-laranja);}
+
+.logo-esesp {
+    height: 70px;
+    margin: 10px 0 10px 20px;}
+
+.titulo-esesp {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--cor-cinza-escuro);}
+
+.separador {
+    width: 1px;
+    height: 50px;
+    background: #b4b4b4;}
+
+.link-contatos {
+    font-family: var(--fonte-principal);
+    font-size: 18px;
+    color: var(--cor-cinza-escuro);
+    white-space: nowrap;
+    transition: transform .3s ease, color .3s ease;}
+
+.link-contatos:hover {
+    transform: scale(1.05);
+    color: #4e4e4e;}
+
+/* =====================================================
+   ÁREA DO USUÁRIO
+===================================================== */
+.usuario-area {
+    position: relative;}
+
+.usuario-area span {
+    margin-right: 5px;
+    font-family: var(--fonte-principal);
+    font-size: 18px;
+    color: var(--cor-cinza-escuro);
+    white-space: nowrap;}
+
+.topo-notificacoes {
+    width: 55px;
+    padding: 13px;
+    margin-right: 3px;
+    background: var(--cor-laranja);
+    border-radius: 100px;
+    cursor: pointer;}
+
+.ola-credenciado {
+    width: 100%;
+    height: 100%;
+    filter: invert(100%);}
+
+/* =====================================================
+   DROPDOWN DO USUÁRIO
+===================================================== */
+.dropdown-usuario {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 220px;
+    background: var(--cor-branco);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all .35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 1000;}
+
+.dropdown-usuario.ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);}
+
+.dropdown-usuario a {
+    text-decoration: none;
+    padding: 14px 18px;
+    font-size: 15px;
+    color: var(--cor-cinza-escuro);
+    transition: background .2s ease;}
+
+.dropdown-usuario a:hover {
+    background: #f2f2f2;}
+
+.dropdown-usuario a:last-child {
+    color: #c0392b;}
+
+/* =====================================================
+   TÍTULOS E TEXTOS
+===================================================== */
+.titulo {
+    font-family: var(--fonte-secundaria);
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--cor-azul-escuro);}
+
+.descricao-editais {
+    font-family: var(--fonte-secundaria);
+    font-size: 20px;
+    color: var(--cor-cinza-escuro);}
+
+.linha-com-texto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+
+    font-family: var(--fonte-secundaria);
+    font-size: 20px;
+    color: var(--cor-cinza-escuro);
+    text-align: center;}
+
+.linha-com-texto::before,
+.linha-com-texto::after {
+    content: "";
+    flex: 1;
+    border-top: 2px solid var(--cor-azul-escuro);}
+
+.modalidade {
+    font-family: var(--fonte-secundaria);
+    color: var(--cor-cinza-escuro);
+    font-size: 18px;}
+
+.estacao-conteudo {
+    background-color: var(--cor-branco);
+    padding: 5px;
+    font-family: var(--fonte-secundaria);
+    font-size: 14px;
+    color: var(--cor-cinza-escuro);
+    line-height: 1.5;}
+
+.trilha-item {
+    background-color: var(--cor-branco);
+    padding: 10px;
+    font-family: var(--fonte-secundaria);
+    font-size: 16px;
+    color: var(--cor-cinza-escuro);
+    line-height: 1.5;}
+
+/* =====================================================
+   LINHAS SEPARADORAS
+===================================================== */
+.linha {
+    width: 100%;
+    margin: 10px 0;
+    border-top: 2px solid var(--cor-azul-escuro);}
+
+/* =====================================================
+   LINHAS SEPARADORAS
+===================================================== */
+.seta-usuario {
+    width: 18px;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: transform .3s ease;}
+
+.seta-trilhas {
+    width: 22px;
+    transition: 0.4s ease;}
+
+/* =====================================================
+   LISTA DE EDITAIS
+===================================================== */
+.section-credenciamento {
+    margin-top: 120px;}
+
+.card-edital {
+    border-left: 4px solid var(--cor-azul-escuro);
+    background-color: var(--cor-cinza-o);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;}
+
+.edital-header {
+    margin-bottom: 15px;}
+
+.edital-header h3 {
+    font-family: var(--fonte-principal);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cor-azul-escuro);
+    margin: 0;
+    line-height: 1.3;}
+
+.edital-descricao {
+    font-family: var(--fonte-secundaria);
+    font-size: 16px;
+    color: var(--cor-cinza-escuro);
+    margin-bottom: 20px;
+    line-height: 1.6;}
+
+.edital-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;}
+
+.btn-edital {
+    box-shadow: rgba(163, 187, 214, 0.4) 0px 0px 0px 2px, rgba(60, 104, 155, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.527) 0px 1px 0px inset;
+    display: inline-flex;
+    background-color: var(--cor-laranja);
+    align-items: center;
+    gap: 10px;
+    color: var(--cor-branco)!important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;}
+
+.btn-edital img {
+    filter: invert(100%);
+    width: 25px;
+    height: 25px;
+    object-fit: contain;}
+
+.btn-edital:hover {
+    transform: scale(1.03) translateY(1px);
+    text-decoration: none;}
+
+.email-edital {
+    text-decoration: none!important;
+    font-family: var(--fonte-secundaria);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--cor-azul-escuro)!important;
+    transition: 0.3s ease;}
+
+.span-edital {
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--cor-cinza-escuro);
+}
+
+.hover-3 { 
+    --c: var(--cor-azul-escuro); 
+    --h: 1.2em; 
+    display: inline-block; 
+    line-height: var(--h); 
+    color: rgb(236, 154, 1); 
+    background: linear-gradient(var(--c) 0 0) bottom / 0% 1px no-repeat; 
+        transition: background-size .35s ease, color .35s ease;} 
+        
+.hover-3:hover { 
+    color: var(--c); 
+    background-size: 100% 1px;}
+
+/* =====================================================
+    TRILHAS / ESTAÇÕES
+===================================================== */
+
+button:focus, 
+.trilha-toggle:focus, 
+.trilha-toggle:active {
+    outline: none !important;
+    box-shadow: none !important; }
+
+
+
+.trilha-toggle {
+    width: 100%;
+    background-color: #ffffff;
+    color: var(--cor-azul-escuro);
+    border: 1.5px solid var(--cor-azul-escuro);
+    padding: 14px 10px;
+    font-family: var(--fonte-principal);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;}
+
+.trilha-toggle:hover {
+    background-color: var(--cor-laranja);
+    color: #ffffff;
+    border-color: var(--cor-laranja);
+    transform: translateY(-2px);}
+
+.trilha-toggle[aria-expanded="true"] {
+    background-color: var(--cor-laranja);
+    color: #ffffff;
+    border-color: var(--cor-laranja);}
+
+.estacao {
+    margin-top: 6px;
+    border: 1px solid var(--cor-cinza-medio);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+
+.estacao-titulo  {
+    background-color: var(--cor-cinza-escuro);
+    color: var(--cor-branco);
+    margin: 0;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;}
+
+.trilhas-container {
+    padding-bottom: 50px;}
+
+.ul-estacao {
+    list-style-type: disc; 
+    padding-left: 22px;}
+
+.trilha-col {
+    display: flex;
+    justify-content: center;}
+
+.gatilho-wrapper {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    will-change: transform;}
+
+.gatilho-wrapper {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    will-change: transform;}
+
+.gatilho-wrapper:hover .descricao-editais {
+    color: var(--cor-azul-escuro);}
+
+.gatilho-wrapper:hover .seta-trilhas {
+    filter: brightness(0) saturate(100%)
+            invert(15%) sepia(96%) saturate(2700%)
+            hue-rotate(200deg) brightness(60%) contrast(95%);}
+
+.seta-trilhas {
+    transition: transform 0.3s ease;}
+
+.seta-trilhas.ativo {
+    transform: rotate(180deg);}
+
+/* =====================================================
+  CARGOS
+===================================================== */
+.section-cargos {
+    margin-top: 25px;
+    margin-bottom: 25px;}
+
+.caixa-topo {
+    background-color: var(--cor-azul-escuro);
+    margin: 0;
+    padding: 10px;}
+
+.cargo-conteudo {
+    color: var(--cor-cinza-escuro);
+    padding: 12px;}
+
+.lei {
+    color: var(--cor-laranja);
+    text-decoration: none;}
+
+/* =====================================================
+   RODAPÉ
+===================================================== */
+.rodape {
+    background-color: #e6e6e6;
+    min-height: 135px;
+    display: flex;
+    align-items: center;}
+
+/* ESQUERDA */
+.rodape-redes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;}
+
+.rodape-frase {
+    font-family: var(--fonte-secundaria);
+    font-size: 18px;
+    color: var(--cor-cinza-escuro);
+    margin-bottom: 6px;}
+
+.logo-branca {
+    filter: invert(100%);}
+
+.icones-redes {
+    display: flex;
+    gap: 16px;}
+
+.icones-redes img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;}
+
+.icones-redes img:hover {
+    transform: scale(1.15);
+    opacity: 0.8;}
+
+/* DIREITA */
+.rodape-info {
+    text-align: right;
+    font-family: var(--fonte-secundaria);
+    font-size: 18px;
+    color: var(--cor-cinza-escuro);}
+
+.duvida {
+    font-size: 20px;}
+
+.rodape-info a {
+    color: var(--cor-azul-escuro);
+    font-weight: 500;
+    text-decoration: none;}
+
+.rodape-info a:hover {
+    text-decoration: underline;}
+
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1530px;}}
+
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
+
+/* ---------- MOBILE (até 576px) ---------- */
+@media (max-width: 576px) {
+
+    /* ================= HEADER ================= */
+    .topo {
+        height: auto;
+        padding: 12px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;}
+
+    .logo-esesp {
+        height: 50px;
+        margin: 0 auto;
+        display: block;}
+
+    .titulo-esesp {
+        display: none;}
+
+    .separador {
+        display: none;}
+
+    .acoes-topo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        margin-top: 4px;}
+
+    .link-contatos {
+        font-size: 14px;
+        position: relative;
+        padding-right: 12px;
+        margin-right: 6px;}
+
+    .link-contatos::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 18px;
+        background-color: #b4b4b4;}
+
+    .usuario-area span {
+        display: none;}
+
+    .topo-notificacoes {
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;}
+
+    .ola-credenciado {
+        width: 22px;
+        height: 22px;}
+
+    /* ================= EDITAIS ================= */
+    .titulo {
+        font-size: 24px;
+        text-align: center;}
+
+    .descricao-editais {
+        font-size: 15px;
+        text-align: center;}
+
+    .linha-com-texto {
+        font-size: 15px;
+        gap: 8px;
+        text-align: center;}
+
+    /* ================= TRILHAS ================= */
+    .trilha-toggle {
+        font-size: 12px;
+        padding: 12px 10px;}
+
+    .estacao-titulo {
+        font-size: 12px;}
+
+    .estacao-conteudo {
+        font-size: 13px;}
+
+    .trilha-col {
+        justify-content: stretch;}
+
+    /* ================= CTA ================= */
+    .cta-credenciamento {
+        height: auto;}
+
+    .cta-conteudo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 16px;}
+
+    .cta-credenciamento h3 {
+        font-size: 17px;
+        white-space: normal;
+        line-height: 1.3;}
+
+    .cta-credenciamento p {
+        font-size: 14px;}
+
+    /* ================= RODAPÉ ================= */
+    .rodape-frase {
+        font-size: 14px;
+        margin-bottom: 6px;}
+
+    .icones-redes {
+        gap: 12px;
+        margin-bottom: 14px;}
+
+    .icones-redes img {
+        width: 26px;
+        height: 26px;}
+
+    .duvida {
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 4px;}
+
+    .rodape-info {
+        font-size: 14px;
+        line-height: 1.35;}
+
+    .rodape-info a {
+        font-weight: 600;
+        word-break: break-word;}}
+
+/* ---------- TABLET (até 768px) ---------- */
+@media (max-width: 768px) {
+
+    .titulo {
+        font-size: 30px;}
+
+    .descricao-editais {
+        font-size: 17px;}
+
+    .titulo-esesp {
+        font-size: 20px;
+        text-align: center;}
+
+    .cta-conteudo {
+        gap: 14px;}
+
+    .cta-credenciamento h3 {
+        font-size: 19px;}
+
+    .cta-credenciamento p {
+        font-size: 15px;}
+
+    .rodape-info {
+        font-size: 15px;}}
+
+/* ---------- NOTEBOOK / DESKTOP MÉDIO (até 992px) ---------- */
+@media (max-width: 992px) {
+
+    .titulo-esesp {
+        font-size: 22px;}
+
+    .linha-com-texto {
+        font-size: 17px;}
+
+    .rodape-info {
+        font-size: 16px;}}
