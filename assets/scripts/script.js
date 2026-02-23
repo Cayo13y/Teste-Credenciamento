@@ -1,131 +1,123 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    /* =========================================================
+       DROPDOWN USUÁRIO (CLIQUE)
+    ========================================================= */
     const btnUsuario = document.getElementById('btn-usuario');
     const dropdownUsuario = document.querySelector('.dropdown-usuario');
     const setaUsuario = document.querySelector('.seta-usuario');
 
-    if (!btnUsuario || !dropdownUsuario) return;
+    if (btnUsuario && dropdownUsuario) {
 
-    btnUsuario.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dropdownUsuario.classList.toggle('ativo');
+        btnUsuario.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdownUsuario.classList.toggle('ativo');
 
-        if (setaUsuario) {
-            setaUsuario.classList.toggle('ativo');
+            if (setaUsuario) {
+                setaUsuario.classList.toggle('ativo');
+            }
+        });
+
+        document.addEventListener('click', function () {
+            dropdownUsuario.classList.remove('ativo');
+
+            if (setaUsuario) {
+                setaUsuario.classList.remove('ativo');
+            }
+        });
+    }
+
+
+
+    /* =========================================================
+       FUNÇÃO REUTILIZÁVEL PARA HOVER PROFISSIONAL
+    ========================================================= */
+    function ativarHoverProfissional(botaoId, collapseId, setaId, containerInternoSelector) {
+
+        const botao = document.getElementById(botaoId);
+        const collapse = document.getElementById(collapseId);
+        const seta = document.getElementById(setaId);
+        const containerInterno = document.querySelector(containerInternoSelector);
+
+        if (!botao || !collapse || !containerInterno) return;
+
+        let closeTimeout;
+
+        /* ABRIR AO ENTRAR NO BOTÃO */
+        botao.addEventListener('mouseenter', function () {
+            clearTimeout(closeTimeout);
+            $(collapse).collapse('show');
+        });
+
+        /* MANTER ABERTO AO ENTRAR NO CONTEÚDO */
+        collapse.addEventListener('mouseenter', function () {
+            clearTimeout(closeTimeout);
+        });
+
+        /* FECHAR AO SAIR DE TUDO */
+        function fecharComDelay() {
+            closeTimeout = setTimeout(() => {
+                $(collapse).collapse('hide');
+            }, 300);
         }
-    });
 
-    document.addEventListener('click', function () {
-        dropdownUsuario.classList.remove('ativo');
+        botao.addEventListener('mouseleave', fecharComDelay);
+        collapse.addEventListener('mouseleave', fecharComDelay);
 
-        if (setaUsuario) {
-            setaUsuario.classList.remove('ativo');
-        }
-    });
+        /* SINCRONIZA SETA */
+        $(collapse).on('show.bs.collapse', function (e) {
+            if (e.target !== collapse) return;
+            if (seta) seta.classList.add('ativo');
+        });
 
-});
+        $(collapse).on('hide.bs.collapse', function (e) {
+            if (e.target !== collapse) return;
 
-document.addEventListener('DOMContentLoaded', function () {
-    const gatilho = document.getElementById('btn-abrir-tudo');
-    const collapseElement = document.getElementById('wrapper-grid-trilhas');
-    const seta = document.getElementById('seta-mestre');
-    const areaTrilhas = document.querySelector('.arcodeon-container');
+            if (seta) seta.classList.remove('ativo');
 
-    if (!gatilho || !collapseElement || !areaTrilhas) return;
+            // fecha internos
+            $(collapse)
+                .find('.collapse.show')
+                .collapse('hide');
+        });
 
-    /* ===============================
-       SINCRONIZA SETA COM TRILHAS
-    =============================== */
-    $(collapseElement).on('show.bs.collapse', function (e) {
-        if (e.target !== collapseElement) return;
-        seta.classList.add('ativo');
-    });
+        /* FECHAR AO CLICAR FORA */
+        document.addEventListener('click', function (e) {
 
-    $(collapseElement).on('hide.bs.collapse', function (e) {
-        // garante que é o collapse PAI
-        if (e.target !== collapseElement) return;
+            const isVisible = collapse.classList.contains('show');
+            if (!isVisible) return;
 
-        seta.classList.remove('ativo');
+            const clickedOnBotao = botao.contains(e.target);
+            const clickedInsideContent = containerInterno.contains(e.target);
 
-        // fecha tudo que estiver aberto dentro
-        $(collapseElement)
-            .find('.collapse.show')
-            .collapse('hide');
-    });
+            if (!clickedOnBotao && !clickedInsideContent) {
+                $(collapse).collapse('hide');
+            }
+        });
+    }
 
-    /* ===============================
-       CLIQUE NO GATILHO
-    =============================== */
-    gatilho.addEventListener('click', function (e) {
-        e.stopPropagation();
-        $(collapseElement).collapse('toggle');
-    });
 
-    /* ===============================
-       FECHAR AO CLICAR FORA
-    =============================== */
-    document.addEventListener('click', function (e) {
-        const isVisible = collapseElement.classList.contains('show');
-        if (!isVisible) return;
 
-        const clickedOnGatilho = gatilho.contains(e.target);
-        const clickedInsideContent = areaTrilhas.contains(e.target);
+    /* =========================================================
+       TRILHAS - HOVER
+    ========================================================= */
+    ativarHoverProfissional(
+        'btn-abrir-tudo',
+        'wrapper-grid-trilhas',
+        'seta-mestre',
+        '.arcodeon-container'
+    );
 
-        if (!clickedOnGatilho && !clickedInsideContent) {
-            $(collapseElement).collapse('hide');
-        }
-    });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
 
-    const gatilhoCargos = document.getElementById('btn-abrir-cargos');
-    const collapseCargos = document.getElementById('wrapper-grid-cargos');
-    const setaCargos = document.getElementById('seta-cargos');
-    const areaCargos = document.querySelector('#wrapper-grid-cargos .container');
-
-    if (!gatilhoCargos || !collapseCargos || !areaCargos) return;
-
-    /* ===============================
-       SINCRONIZA SETA COM CARGOS
-    =============================== */
-    $(collapseCargos).on('show.bs.collapse', function (e) {
-        if (e.target !== collapseCargos) return;
-        setaCargos.classList.add('ativo');
-    });
-
-    $(collapseCargos).on('hide.bs.collapse', function (e) {
-        if (e.target !== collapseCargos) return;
-
-        setaCargos.classList.remove('ativo');
-
-        // fecha todos os cargos internos abertos
-        $(collapseCargos)
-            .find('.collapse.show')
-            .collapse('hide');
-    });
-
-    /* ===============================
-       CLIQUE NO GATILHO
-    =============================== */
-    gatilhoCargos.addEventListener('click', function (e) {
-        e.stopPropagation();
-        $(collapseCargos).collapse('toggle');
-    });
-
-    /* ===============================
-       FECHAR AO CLICAR FORA
-    =============================== */
-    document.addEventListener('click', function (e) {
-        const isVisible = collapseCargos.classList.contains('show');
-        if (!isVisible) return;
-
-        const clickedOnGatilho = gatilhoCargos.contains(e.target);
-        const clickedInsideContent = areaCargos.contains(e.target);
-
-        if (!clickedOnGatilho && !clickedInsideContent) {
-            $(collapseCargos).collapse('hide');
-        }
-    });
+    /* =========================================================
+       CARGOS - HOVER (MESMO ESQUEMA)
+    ========================================================= */
+    ativarHoverProfissional(
+        'btn-abrir-cargos',
+        'wrapper-grid-cargos',
+        'seta-cargos',
+        '#wrapper-grid-cargos .container'
+    );
 
 });
